@@ -1,136 +1,292 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Inteligência Útil — Curadoria de IA para Empresas de Serviço</title>
-    <style>
-        :root {
-            --bg: #fafafa;
-            --card: #ffffff;
-            --text: #1a1a2e;
-            --accent: #e74c3c;
-            --accent2: #2ecc71;
-            --muted: #666;
-            --border: #eee;
-        }
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-            background: var(--bg);
-            color: var(--text);
-            line-height: 1.6;
-            padding: 0 20px;
-        }
-        .container { max-width: 720px; margin: 0 auto; padding: 40px 20px; }
-        header {
-            text-align: center;
-            padding: 40px 0 20px;
-            border-bottom: 1px solid var(--border);
-        }
-        header h1 { font-size: 2em; font-weight: 800; letter-spacing: -0.5px; }
-        header h1 span { color: var(--accent); }
-        header p { color: var(--muted); font-size: 1.05em; margin-top: 8px; }
-        .subtitle {
-            text-align: center;
-            color: var(--muted);
-            font-size: 0.95em;
-            padding: 12px 0 24px;
-        }
-        .post {
-            background: var(--card);
-            border: 1px solid var(--border);
-            border-radius: 12px;
-            padding: 24px 28px;
-            margin-bottom: 20px;
-            transition: box-shadow .2s;
-        }
-        .post:hover { box-shadow: 0 2px 12px rgba(0,0,0,.06); }
-        .post .tag {
-            display: inline-block;
-            font-size: .75em;
-            font-weight: 700;
-            padding: 2px 10px;
-            border-radius: 4px;
-            margin-right: 6px;
-        }
-        .tag-sinal { background: #2ecc71; color: #fff; }
-        .tag-fumaca { background: #e74c3c; color: #fff; }
-        .tag-deep { background: #3498db; color: #fff; }
-        .post h2 { font-size: 1.2em; margin: 12px 0 8px; }
-        .post h2 a { color: var(--text); text-decoration: none; }
-        .post h2 a:hover { text-decoration: underline; }
-        .post .meta { color: var(--muted); font-size: .85em; margin-bottom: 8px; }
-        .post p { color: #444; font-size: .95em; }
-        .post .link { margin-top: 12px; }
-        .post .link a { color: var(--accent); font-size: .9em; }
-        footer {
-            text-align: center;
-            color: var(--muted);
-            font-size: .85em;
-            padding: 40px 0;
-            border-top: 1px solid var(--border);
-        }
-        @media (max-width: 600px) {
-            .container { padding: 20px 12px; }
-            header h1 { font-size: 1.5em; }
-            .post { padding: 16px 18px; }
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Inteligência Útil — Briefing Diário de IA</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;color:#1a1a2e;background:#f9f9fb;line-height:1.4;-webkit-font-smoothing:antialiased}
+
+/* ===== LAYOUT ===== */
+.wrap{max-width:850px;margin:0 auto;padding:0 20px}
+
+/* ===== HEADER ===== */
+.head{display:flex;align-items:center;gap:4px;padding:16px 0 0;border-bottom:1px solid #e4e4e7}
+.head .logo{font-size:1.05em;font-weight:400;color:#888}
+.head .logo strong{font-size:1.05em;font-weight:600;color:#c0392b}
+.head .nav{margin-left:auto;display:flex;gap:12px;align-items:center}
+.head .nav a{font-size:.7em;color:#555;text-decoration:none}
+.head .nav a:hover{color:#c0392b}
+.head .cta{font-size:.65em;color:#fff;background:#c0392b;padding:4px 12px;border-radius:4px;text-decoration:none;font-weight:600}
+.head .cta:hover{background:#a93226}
+
+/* ===== EDITION ===== */
+.edition{padding:0 0 0;margin-top:-1px}
+.edition .meta{font-size:.62em;color:#888;margin:8px 0}
+.edition .meta span{margin:0 2px}
+.edition h1{font-size:2.4em;font-weight:400;line-height:1.15;color:#1a1a2e;margin:4px 0 8px;letter-spacing:-.5px}
+.edition .desc{font-size:.6em;color:#999;margin:4px 0 12px}
+
+/* ===== QUICK SUMMARY ===== */
+.quick{background:#fff;border:1px solid #e4e4e7;border-radius:8px;padding:16px 18px;margin:16px 0}
+.quick .head{font-size:1.15em;font-weight:600;margin:0 0 2px}
+.quick .sub{font-size:.58em;color:#999;display:block;text-align:right;margin:8px 0 10px}
+.quick .items{display:flex;flex-direction:column;gap:6px}
+.qitem{display:flex;align-items:baseline;gap:4px;padding:2px 0;font-size:.66em;color:#444;line-height:1.35}
+.qitem .label{display:inline-block;font-size:.55em;font-weight:700;padding:0 5px;border-radius:2px;min-width:42px;text-align:center;color:#fff;margin-right:4px}
+.qitem .l-sinal{background:#27ae60}
+.qitem .l-deep{background:#2980b9}
+.qitem .l-fumaca{background:#e74c3c}
+
+/* stats */
+.stats{display:flex;flex-wrap:wrap;gap:2px 8px;margin:8px 0 0;font-size:.64em;color:#555;border-top:1px solid #eee;padding:6px 0}
+.stats span{font-weight:600;color:#1a1a2e;margin-right:1px}
+
+/* ===== MAIN GRID ===== */
+.main{display:grid;grid-template-columns:1fr 220px;gap:24px;padding:0 0 20px}
+
+/* ===== FEED ===== */
+.feed{display:flex;flex-direction:column;gap:8px}
+
+/* section label */
+.section{padding:6px 0 2px;display:flex;justify-content:space-between;align-items:baseline;gap:8px;margin:4px 0}
+.section .tag{font-size:.62em;font-weight:700;letter-spacing:.3px}
+.sec-sinal{color:#27ae60}
+.sec-deep{color:#2980b9}
+.sec-fumaca{color:#e74c3c;font-style:italic}
+.section .note{font-size:.58em;color:#999;display:flex;gap:4px;align-items:center;margin-left:auto}
+.section .date{font-size:.6em;color:#888}
+
+/* post card */
+.post{background:#fff;border:1px solid #e8e8ea;border-radius:8px;padding:14px 16px}
+.post h2{font-size:1.05em;font-weight:600;line-height:1.25;margin:0 0 8px;color:#1a1a2e}
+.post h2 a{color:#1a1a2e;text-decoration:none}
+.post h2 a:hover{color:#c0392b}
+.post .desc{font-size:.78em;color:#555;line-height:1.35;margin:0 0 8px}
+
+/* two-col inside post */
+.post .grid2{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:8px 0}
+.post .grid2 .col h4{font-size:.58em;font-weight:700;color:#1a1a2e;margin:0 0 4px}
+.post .grid2 .col p{font-size:.65em;color:#444;line-height:1.3}
+
+.post .tags{margin:8px 0 0;display:flex;gap:4px;flex-wrap:wrap}
+.post .tags span{font-size:.6em;color:#555;background:#f0f0f3;padding:1px 7px;border-radius:3px}
+.post .link{font-size:.7em;font-weight:600;text-align:right;margin:0}
+.post .link a{color:#c0392b;text-decoration:none}
+.post .link a:hover{text-decoration:underline}
+
+/* FUMAÇA special */
+.post-fumaca{border-color:#e8dcd8;background:#fdfaf9}
+.post-fumaca .note{font-size:.7em;color:#999;font-style:italic}
+.post-fumaca .desc{color:#888;font-size:.75em}
+.post-fumaca .why{font-size:.68em;color:#666;line-height:1.3}
+.post-fumaca .why strong{color:#c0392b}
+
+/* ===== SIDEBAR ===== */
+.sidebar{position:sticky;top:16px;align-self:start;display:flex;flex-direction:column;gap:8px}
+
+.box{background:#fff;border:1px solid #e8e8ea;border-radius:8px;padding:14px 15px}
+.box h3{font-size:.62em;font-weight:600;color:#444;margin:0 0 6px;letter-spacing:-.2px}
+.box p{font-size:.6em;color:#666;line-height:1.3}
+
+/* signup */
+.box-signup{background:#c0392b;color:#fff;border:0}
+.box-signup h3{color:#fff;font-size:.65em}
+.box-signup p{color:rgba(255,255,255,.85);font-size:.62em}
+.box-signup .inp{display:flex;gap:4px;margin:6px 0 0;flex-wrap:wrap}
+.box-signup input{border:0;border-radius:4px;padding:6px 10px;font-size:.7em;flex:1;min-width:120px}
+.box-signup button{background:transparent;border:1px solid rgba(255,255,255,.4);color:#fff;border-radius:4px;padding:6px 12px;font-size:.68em;cursor:pointer;font-weight:600}
+.box-signup button:hover{background:rgba(255,255,255,.2)}
+
+/* filter */
+.box-filt .tags{display:flex;flex-wrap:wrap;gap:3px}
+.box-filt .tags a{font-size:.62em;color:#555;background:#f0f0f3;padding:2px 8px;border-radius:3px;text-decoration:none}
+.box-filt .tags a:hover{background:#c0392b;color:#fff}
+
+/* prev editions */
+.box-prev .item{font-size:.68em;color:#555;padding:4px 0;border-bottom:1px solid #eee;display:flex;justify-content:space-between}
+.box-prev .item:last-child{border:0}
+.box-prev .item .d{color:#999;font-size:.85em}
+.box-prev .more{margin:6px 0 0}
+.box-prev .more a{font-size:.65em;color:#c0392b;text-decoration:none;font-weight:600}
+
+/* author */
+.box-author{text-align:center;padding:14px 12px}
+.box-author .avatar{width:48px;height:48px;border-radius:50%;margin:0 auto 6px;display:block}
+.box-author h3{margin:0 0 2px}
+.box-author .bio{font-size:.6em;color:#777}
+
+/* ===== FOOTER ===== */
+.footer{border-top:1px solid #e4e4e7;padding:20px 0;margin-top:24px;font-size:.68em;color:#999;display:flex;justify-content:space-between;gap:8px;flex-wrap:wrap}
+.footer .copy strong{color:#c0392b}
+.footer .tags{color:#888}
+
+/* ===== RESPONSIVE ===== */
+@media(max-width:700px){
+    .main{grid-template-columns:1fr}
+    .sidebar{position:static}
+    .post .grid2{grid-template-columns:1fr}
+    .head{flex-direction:column;align-items:start;gap:6px}
+}
+</style>
 </head>
 <body>
-    <div class="container">
-        <header>
-            <h1>🧠 <span>Inteligência</span> Útil</h1>
-            <p>Curadoria de IA para quem toca empresa de serviço</p>
-        </header>
-        <div class="subtitle">
-            🔥 Sinal · 💨 Fumaça · 🧠 Deep — separamos o que realmente importa pro seu negócio
-        </div>
 
-        <div class="post">
-            <span class="tag tag-sinal">🔥 SINAL</span>
-            <div class="meta">03 Out 2026 · 4 min de leitura</div>
-            <h2><a href="#">Claude 4.5 da Anthropic: o modelo que finalmente entende processos</a></h2>
-            <p>
-                O Claude 4.5 não é só mais um modelo melhor em benchmark. A Anthropic lançou uma
-                API de "tool use" que permite o modelo seguir fluxos de trabalho com múltiplas
-                etapas sem perder o contexto. Pra uma empresa de serviço, isso significa que
-                um assistente de IA consegue processar um ticket do começo ao fim — abrir chamado,
-                consultar base de conhecimento, preencher formulário e responder o cliente.
-            </p>
-            <div class="link"><a href="#">→ Ler análise completa</a></div>
-        </div>
+<div class="wrap">
 
-        <div class="post">
-            <span class="tag tag-fumaca">💨 FUMAÇA</span>
-            <div class="meta">03 Out 2026 · 2 min de leitura</div>
-            <h2><a href="#">Novo modelo de raciocínio bate 99% em matemática avançada</a></h2>
-            <p>
-                Mais um paper com resultados impressionantes em benchmarks acadêmicos.
-                O modelo resolve problemas de matemática de nível olímpico e passa no
-                MMLU com 99.2%. A pergunta que importa: quantos empresários de serviço
-                precisam resolver equações diferenciais no dia a dia? Nenhum. Fumaça.
-            </p>
-        </div>
+<!-- ========== HEADER ========== -->
+<div class="head">
+  <div class="logo"><strong>Inteligência</strong> Útil</div>
+  <nav class="nav">
+    <a href="#">Hoje</a>
+    <a href="#">Arquivo</a>
+    <a href="#">Sobre</a>
+    <a href="#" class="cta">Receber às 7h</a>
+  </nav>
+</div>
 
-        <div class="post">
-            <span class="tag tag-deep">🧠 DEEP</span>
-            <div class="meta">02 Out 2026 · 6 min de leitura</div>
-            <h2><a href="#">O custo real de rodar IA numa PME em 2026</a></h2>
-            <p>
-                Fizemos as contas: quanto custa colocar um agente de IA pra operar o
-                atendimento de uma empresa de médio porte? APIs como a da OpenAI caíram
-                80% em 12 meses. Com R$ 2.000/mês você roda um assistente que atende
-                3 canais simultâneos. Mas tem o custo escondido: manutenção de prompts,
-                curadoria de dados e supervisão humana. O ROI real vs esperado.
-            </p>
-            <div class="link"><a href="#">→ Ler análise completa</a></div>
-        </div>
+<!-- ========== EDITION BANNER ========== -->
+<div class="edition">
+  <div class="meta">
+    <span>EDIÇÃO DE SÁBADO, 03 DE OUTUBRO DE 2026</span>
+    <span>·</span>
+    <span>3 ITENS · 12 MIN NO TOTAL</span>
+  </div>
+  <h1>O que aconteceu em IA hoje — e o que muda na sua <br>empresa de serviço.</h1>
+</div>
 
-        <footer>
-            <p>Feito por <strong>Samuel Silveira</strong> · Curadoria independente · Nenhum patrocínio · Só o que importa</p>
-        </footer>
+<!-- ========== 60-SECOND SUMMARY ========== -->
+<div class="quick">
+  <div class="head">⏱ Em 60 segundos</div>
+  <span class="sub">Se só ler isto hoje, já está em dia.</span>
+  <div class="items">
+    <div class="qitem"><span class="label l-sinal">SINAL</span> Claude 4.5 consegue seguir um fluxo de várias etapas sem se perder — um assistente pode levar um chamado do início ao fim.</div>
+    <div class="qitem"><span class="label l-deep">DEEP</span> Fizemos as contas: cerca de R$ 2.000/mês roda um assistente em 3 canais — mas há custos escondidos.</div>
+    <div class="qitem"><span class="label l-fumaca">FUMAÇA</span> Modelo novo bate recorde em matemática olímpica. Impacto no seu negócio: nenhum. Pode ignorar.</div>
+  </div>
+  <div class="stats">
+    <span>Tudo 3</span> · <span>Sinal 1</span> · <span>Fumaça 1</span> · <span>Deep 1</span>
+  </div>
+</div>
+
+<!-- ========== MAIN GRID ========== -->
+<div class="main">
+
+<div class="feed">
+
+<!-- === SINAL === -->
+<div class="section">
+  <span class="tag sec-sinal">🔥 SINAL · IMPORTA PRO SEU NEGÓCIO</span>
+  <span class="date">03 Out · 4 min</span>
+</div>
+
+<div class="post">
+  <h2><a href="#">Claude 4.5 da Anthropic: o modelo que finalmente entende processos</a></h2>
+  <div class="desc">A Anthropic lançou uma API de "tool use" que permite ao modelo seguir fluxos de trabalho com múltiplas etapas sem perder o contexto. Não é só mais um modelo melhor em benchmark.</div>
+  <div class="grid2">
+    <div class="col">
+      <h4>O QUE MUDA PRA VOCÊ</h4>
+      <p>Um assistente consegue processar um ticket do começo ao fim: abrir chamado, consultar a base de conhecimento, preencher formulário e responder o cliente.</p>
     </div>
+    <div class="col">
+      <h4>AÇÃO SUGERIDA</h4>
+      <p>Escolha um processo de atendimento repetitivo, com 3 a 5 etapas, e liste cada passo. É o candidato ideal para um primeiro teste.</p>
+    </div>
+  </div>
+  <div class="tags">
+    <span>Atendimento</span>
+    <span>Operação</span>
+  </div>
+  <div class="link"><a href="#">Ler análise completa →</a></div>
+</div>
+
+<!-- === DEEP === -->
+<div class="section">
+  <span class="tag sec-deep">🧠 DEEP · PARA LER COM CALMA</span>
+  <span class="date">02 Out · 6 min</span>
+</div>
+
+<div class="post">
+  <h2><a href="#">O custo real de rodar IA numa PME em 2026</a></h2>
+  <div class="desc">Quanto custa colocar um agente de IA para operar o atendimento de uma empresa de médio porte? O ROI real versus o esperado.</div>
+  <div class="grid2">
+    <div class="col">
+      <h4>O QUE MUDA PRA VOCÊ</h4>
+      <p>Com cerca de R$ 2.000/mês dá para rodar um assistente que atende 3 canais ao mesmo tempo — as APIs ficaram muito mais baratas em 12 meses.</p>
+    </div>
+    <div class="col">
+      <h4>AÇÃO SUGERIDA</h4>
+      <p>No orçamento, inclua os custos escondidos: manutenção de prompts, curadoria de dados e supervisão humana.</p>
+    </div>
+  </div>
+  <div class="tags">
+    <span>Financeiro</span>
+    <span>Atendimento</span>
+  </div>
+  <div class="link"><a href="#">Ler análise completa →</a></div>
+</div>
+
+<!-- === FUMAÇA === -->
+<div class="section">
+  <span class="tag sec-fumaca">💨 FUMAÇA · PODE IGNORAR</span>
+  <span class="note">Barulho do dia, já filtrado</span>
+</div>
+
+<div class="post post-fumaca">
+  <h2><a href="#">Novo modelo de raciocínio bate 99% em matemática avançada</a></h2>
+  <div class="desc">Por que ignorar: quantos empresários de serviço resolvem equações diferenciais no dia a dia? Nenhum.</div>
+</div>
+
+</div>
+
+<!-- ========== SIDEBAR ========== -->
+<aside class="sidebar">
+
+<div class="box box-signup">
+  <h3>📬 Receba o resumo de 60s às 7h</h3>
+  <p>Um minuto por dia, antes da primeira reunião. Sem spam.</p>
+  <div class="inp">
+    <input type="text" placeholder="WhatsApp ou e-mail">
+    <button>Quero receber</button>
+  </div>
+</div>
+
+<div class="box box-filt">
+  <h3>🏷️ Filtrar por área</h3>
+  <div class="tags">
+    <a href="#">Atendimento</a>
+    <a href="#">Vendas</a>
+    <a href="#">Financeiro</a>
+    <a href="#">RH</a>
+    <a href="#">Operação</a>
+  </div>
+</div>
+
+<div class="box box-prev">
+  <h3>📅 Edições anteriores</h3>
+  <div class="item"><span class="d">Sex, 02 Out</span> <span>· 4 itens</span></div>
+  <div class="item"><span class="d">Qui, 01 Out</span> <span>· 3 itens</span></div>
+  <div class="item"><span class="d">Qua, 30 Set</span> <span>· 5 itens</span></div>
+  <div class="more"><a href="#">→ Ver todas as edições</a></div>
+</div>
+
+<div class="box box-author">
+  <svg class="avatar" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg"><circle cx="24" cy="24" r="22" fill="#c0392b"/><text x="24" y="30" text-anchor="middle" fill="#fff" font-size="16" font-weight="700" font-family="system-ui">SS</text></svg>
+  <h3>Curadoria de <strong>Samuel Silveira</strong></h3>
+  <p class="bio">Curadoria independente. Nenhum patrocínio. Só o que importa para quem toca empresa de serviço.</p>
+</div>
+
+</aside>
+
+</div>
+
+<!-- ========== FOOTER ========== -->
+<div class="footer">
+  <div class="copy"><strong>Inteligência Útil</strong> · Curadoria de IA para empresas de serviço</div>
+  <div class="tags">Sinal · Fumaça · Deep</div>
+</div>
+
+</div>
 </body>
 </html>
